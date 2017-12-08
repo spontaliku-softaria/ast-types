@@ -62,6 +62,9 @@ module.exports = function (fork) {
         .build("body")
         .field("body", [def("Statement")]);
 
+    // TODO Are all Expressions really Patterns?
+    def("Expression").bases("Node", "Pattern");
+
     // TODO Figure out how to silently coerce Expressions to
     // ExpressionStatements where a Statement was expected.
     def("ExpressionStatement")
@@ -191,9 +194,6 @@ module.exports = function (fork) {
         .build("id", "init")
         .field("id", def("Pattern"))
         .field("init", or(def("Expression"), null));
-
-    // TODO Are all Expressions really Patterns?
-    def("Expression").bases("Node", "Pattern");
 
     def("ThisExpression").bases("Expression").build();
 
